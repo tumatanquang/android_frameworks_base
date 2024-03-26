@@ -185,21 +185,21 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         }
         switch(type) {
             case "app-idle-whitelist":
-                return listAppIdleWhitelist();
+                return listAppIdleAllowlist();
             case "wifi-networks":
                 return listWifiNetworks();
             case "restrict-background-whitelist":
-                return listRestrictBackgroundWhitelist();
+                return listRestrictBackgroundAllowlist();
             case "restrict-background-blacklist":
-                return listRestrictBackgroundBlacklist();
+                return listRestrictBackgroundDenylist();
             case "restrict-network-usage-blacklist":
-                return listRestrictNetworkUsageBlacklist();
+                return listRestrictNetworkUsageDenylist();
             case "restrict-wifi-data-blacklist":
-                return listRestrictWiFiDataBlacklist();
+                return listRestrictWiFiDataDenylist();
             case "restrict-mobile-data-blacklist":
-                return listRestrictCellularDataBlacklist();
+                return listRestrictCellularDataDenylist();
             case "restrict-vpn-data-blacklist":
-                return listRestrictVpnDataBlacklist();
+                return listRestrictVpnDataDenylist();
         }
         pw.println("Error: unknown list type '" + type + "'");
         return -1;
@@ -214,19 +214,19 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         }
         switch(type) {
             case "restrict-background-whitelist":
-                return addRestrictBackgroundWhitelist();
+                return addRestrictBackgroundAllowlist();
             case "restrict-background-blacklist":
-                return addRestrictBackgroundBlacklist();
+                return addRestrictBackgroundDenylist();
             case "restrict-network-usage-blacklist":
-                return addRestrictNetworkUsageBlacklist();
+                return addRestrictNetworkUsageDenylist();
             case "restrict-wifi-data-blacklist":
-                return addRestrictWiFiDataBlacklist();
+                return addRestrictWiFiDataDenylist();
             case "restrict-mobile-data-blacklist":
-                return addRestrictCellularDataBlacklist();
+                return addRestrictCellularDataDenylist();
             case "restrict-vpn-data-blacklist":
-                return addRestrictVpnDataBlacklist();
+                return addRestrictVpnDataDenylist();
             case "app-idle-whitelist":
-                return addAppIdleWhitelist();
+                return addAppIdleAllowlist();
         }
         pw.println("Error: unknown add type '" + type + "'");
         return -1;
@@ -243,17 +243,17 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
             case "restrict-background-whitelist":
                 return removeRestrictBackgroundWhitelist();
             case "restrict-background-blacklist":
-                return removeRestrictBackgroundBlacklist();
+                return removeRestrictBackgroundDenylist();
             case "restrict-network-usage-blacklist":
-                return removeRestrictNetworkUsageBlacklist();
+                return removeRestrictNetworkUsageDenylist();
             case "restrict-wifi-data-blacklist":
-                return removeRestrictWiFiDataBlacklist();
+                return removeRestrictWiFiDataDenylist();
             case "restrict-mobile-data-blacklist":
-                return removeRestrictCellularDataBlacklist();
+                return removeRestrictCellularDataDenylist();
             case "restrict-vpn-data-blacklist":
-                return removeRestrictVpnDataBlacklist();
+                return removeRestrictVpnDataDenylist();
             case "app-idle-whitelist":
-                return removeAppIdleWhitelist();
+                return removeAppIdleAllowlist();
         }
         pw.println("Error: unknown remove type '" + type + "'");
         return -1;
@@ -295,37 +295,37 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         return 0;
     }
 
-    private int listRestrictBackgroundWhitelist() throws RemoteException {
+    private int listRestrictBackgroundAllowlist() throws RemoteException {
         return listUidPolicies("Restrict background whitelisted UIDs",
                 POLICY_ALLOW_METERED_BACKGROUND);
     }
 
-    private int listRestrictBackgroundBlacklist() throws RemoteException {
+    private int listRestrictBackgroundDenylist() throws RemoteException {
         return listUidPolicies("Restrict background blacklisted UIDs",
                 POLICY_REJECT_METERED_BACKGROUND);
     }
 
-    private int listRestrictNetworkUsageBlacklist() throws RemoteException {
+    private int listRestrictNetworkUsageDenylist() throws RemoteException {
         return listUidPolicies("Restrict network usage blacklisted UIDs",
                 POLICY_REJECT_ALL);
     }
 
-    private int listRestrictWiFiDataBlacklist() throws RemoteException {
+    private int listRestrictWiFiDataDenylist() throws RemoteException {
         return listUidPolicies("Restrict Wi-Fi data blacklisted UIDs",
                 POLICY_REJECT_WIFI);
     }
 
-    private int listRestrictCellularDataBlacklist() throws RemoteException {
+    private int listRestrictCellularDataDenylist() throws RemoteException {
         return listUidPolicies("Restrict Mobile data blacklisted UIDs",
                 POLICY_REJECT_CELLULAR);
     }
 
-    private int listRestrictVpnDataBlacklist() throws RemoteException {
+    private int listRestrictVpnDataDenylist() throws RemoteException {
         return listUidPolicies("Restrict VPN data blacklisted UIDs",
                 POLICY_REJECT_VPN);
     }
 
-    private int listAppIdleWhitelist() throws RemoteException {
+    private int listAppIdleAllowlist() throws RemoteException {
         final PrintWriter pw = getOutPrintWriter();
         final int[] uids = mInterface.getAppIdleWhitelist();
         return listUidList("App Idle whitelisted UIDs", uids);
@@ -401,7 +401,7 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         return 0;
     }
 
-    private int addRestrictBackgroundWhitelist() throws RemoteException {
+    private int addRestrictBackgroundAllowlist() throws RemoteException {
         return setUidPolicy(POLICY_ALLOW_METERED_BACKGROUND);
     }
 
@@ -409,43 +409,43 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         return resetUidPolicy("not whitelisted", POLICY_ALLOW_METERED_BACKGROUND);
     }
 
-    private int addRestrictBackgroundBlacklist() throws RemoteException {
+    private int addRestrictBackgroundDenylist() throws RemoteException {
         return setUidPolicy(POLICY_REJECT_METERED_BACKGROUND);
     }
 
-    private int addRestrictNetworkUsageBlacklist() throws RemoteException {
+    private int addRestrictNetworkUsageDenylist() throws RemoteException {
         return setUidPolicy(POLICY_REJECT_ALL);
     }
 
-    private int addRestrictWiFiDataBlacklist() throws RemoteException {
+    private int addRestrictWiFiDataDenylist() throws RemoteException {
         return setUidPolicy(POLICY_REJECT_WIFI);
     }
 
-    private int addRestrictCellularDataBlacklist() throws RemoteException {
+    private int addRestrictCellularDataDenylist() throws RemoteException {
         return setUidPolicy(POLICY_REJECT_CELLULAR);
     }
 
-    private int addRestrictVpnDataBlacklist() throws RemoteException {
+    private int addRestrictVpnDataDenylist() throws RemoteException {
         return setUidPolicy(POLICY_REJECT_VPN);
     }
 
-    private int removeRestrictBackgroundBlacklist() throws RemoteException {
+    private int removeRestrictBackgroundDenylist() throws RemoteException {
         return resetUidPolicy("not blacklisted", POLICY_REJECT_METERED_BACKGROUND);
     }
 
-    private int removeRestrictNetworkUsageBlacklist() throws RemoteException {
+    private int removeRestrictNetworkUsageDenylist() throws RemoteException {
         return resetUidPolicy("not blacklisted", POLICY_REJECT_ALL);
     }
 
-    private int removeRestrictWiFiDataBlacklist() throws RemoteException {
+    private int removeRestrictWiFiDataDenylist() throws RemoteException {
         return resetUidPolicy("not blacklisted", POLICY_REJECT_WIFI);
     }
 
-    private int removeRestrictCellularDataBlacklist() throws RemoteException {
+    private int removeRestrictCellularDataDenylist() throws RemoteException {
         return resetUidPolicy("not blacklisted", POLICY_REJECT_CELLULAR);
     }
 
-    private int removeRestrictVpnDataBlacklist() throws RemoteException {
+    private int removeRestrictVpnDataDenylist() throws RemoteException {
         return resetUidPolicy("not blacklisted", POLICY_REJECT_VPN);
     }
 
@@ -458,11 +458,11 @@ class NetworkPolicyManagerShellCommand extends ShellCommand {
         return 0;
     }
 
-    private int addAppIdleWhitelist() throws RemoteException {
+    private int addAppIdleAllowlist() throws RemoteException {
         return setAppIdleWhitelist(true);
     }
 
-    private int removeAppIdleWhitelist() throws RemoteException {
+    private int removeAppIdleAllowlist() throws RemoteException {
         return setAppIdleWhitelist(false);
     }
 
