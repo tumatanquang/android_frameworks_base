@@ -66,4 +66,9 @@
     <string name="accessibility_dpad_left">Kursor kiri</string>
     <string name="accessibility_dpad_right">Kursor kanan</string>
     <string name="status_bar_firewall">Firewall</string>
+    <string name="screenshot_delete_label">Hapus</string>
+    <string name="screenrecord_delete_label">Hapus</string>
+    <string name="screenrecord_lowquality_label">Kualitas rendah</string>
+    <string name="screenrecord_hevc_switch_label">HEVC encoding</string>
+    <string name="screenrecord_hevc_switch_summary">Gunakan HEVC encoder yang lebih efisien</string>
 </resources>
